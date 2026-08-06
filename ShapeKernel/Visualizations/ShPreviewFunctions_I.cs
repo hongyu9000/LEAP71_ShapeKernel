@@ -276,6 +276,26 @@ namespace Leap71
                 PreviewCircle(oFrame, fRadius, clrColor);
             }
 
+            /// <summary>
+            /// Constructs all triangle edges within the mesh from wireframe lines.
+            /// Do not use this function for very large, finely-resolved meshes.
+            /// </summary>
+            public static void PreviewMeshWireframe(
+                Mesh            msh,
+                ColorFloat      clrColor)
+            {
+                int nTriangles = msh.nTriangleCount();
+                for (int i = 0; i < nTriangles; i++)
+                {
+                    Triangle oTri   = msh.oTriangleAt(i);
+                    Vector3 vecA    = msh.vecVertexAt(oTri.A);
+                    Vector3 vecB    = msh.vecVertexAt(oTri.B);
+                    Vector3 vecC    = msh.vecVertexAt(oTri.C);
+                    List<Vector3> aBound = new () {vecA, vecB, vecC, vecA};
+                    Preview(aBound, clrColor);
+                }
+            }
+
             public static void PreviewCylinderWireframe(
                 BaseCylinder    oCyl,
                 ColorFloat      clrColor,
