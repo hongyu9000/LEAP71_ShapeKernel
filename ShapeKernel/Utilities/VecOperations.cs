@@ -108,10 +108,30 @@ namespace Leap71
             /// <summary>
             /// Returns the 2D planar radius of a point with respect to the absolute z-axis.
             /// </summary>
+            public static float fGetRadius(Vector2 vecPt)
+            {
+                float fRadius = MathF.Sqrt(vecPt.X * vecPt.X + vecPt.Y * vecPt.Y);
+                return fRadius;
+            }
+
+            /// <summary>
+            /// Returns the 2D planar radius of a point with respect to the absolute z-axis.
+            /// </summary>
             public static float fGetRadius(Vector3 vecPt)
             {
                 float fRadius = MathF.Sqrt(vecPt.X * vecPt.X + vecPt.Y * vecPt.Y);
                 return fRadius;
+            }
+
+            /// <summary>
+            /// Returns the 2D planar polar angle of a point with respect to the absolute z-axis.
+            /// Cylindrical coordinate system.
+            /// The angle is measured in radian.
+            /// </summary>
+            public static float fGetPhi(Vector2 vecPt)
+            {
+                float fPhi = MathF.Atan2(vecPt.Y, vecPt.X);
+                return fPhi;
             }
 
             /// <summary>
@@ -145,6 +165,17 @@ namespace Leap71
                 float fZ            = vecPt.Z;
                 float fPhi          = fGetPhi(vecPt);
                 Vector3 vecNewPt    = vecGetCylPoint(fNewRadius, fPhi, fZ);
+                return vecNewPt;
+            }
+
+            /// <summary>
+            /// Returns a point with the same cylindrical coordinates (z and radius), but with a new polar position.
+            /// The angle is measured in radian.
+            /// </summary>
+            public static Vector2 vecSetPhi(Vector2 vecPt, float fNewPhi)
+            {
+                float fRadius       = fGetRadius(vecPt);
+                Vector2 vecNewPt    = vecGetCylPoint(fRadius, fNewPhi, 0f).vecStripZ();
                 return vecNewPt;
             }
 
@@ -257,6 +288,20 @@ namespace Leap71
             /// The axis origin can be customised.
             /// The angle increment is measured in radian.
             /// </summary>
+            public static Vector2 vecRotateAroundZ(Vector2 vecPt, float dPhi, Vector2 vecAxisOrigin = new Vector2())
+            {
+                Vector2 vecDiff     = vecPt - vecAxisOrigin;
+                float fPhi          = fGetPhi(vecDiff);
+                Vector2 vecRotDiff  = vecSetPhi(vecDiff, fPhi + dPhi);
+                Vector2 vecRotPt    = vecAxisOrigin + vecRotDiff;
+                return vecRotPt;
+            }
+
+            /// <summary>
+            /// Rotates a point around the absolute z-axis.
+            /// The axis origin can be customised.
+            /// The angle increment is measured in radian.
+            /// </summary>
             public static Vector3 vecRotateAroundZ(Vector3 vecPt, float dPhi, Vector3 vecAxisOrigin = new Vector3())
             {
                 Vector3 vecDiff     = vecPt - vecAxisOrigin;
@@ -290,6 +335,25 @@ namespace Leap71
                 vecA         = vecA.vecSafeNormalized();
                 vecB         = vecB.vecSafeNormalized();
                 float fDot   = float.Clamp(Vector3.Dot(vecA, vecB), -1, 1);
+                float fTheta = MathF.Acos(fDot);
+
+                if (float.IsNaN(fTheta) &&
+                    (MathF.Abs(fDot) == 1))
+                {
+                    return MathF.PI;
+                }
+                return fTheta;
+            }
+
+            /// <summary>
+            /// Returns the minimum angle between to 2D vectors.
+            /// The angle is measured in radian.
+            /// </summary>
+            public static float fGetAngleBetween(Vector2 vecA, Vector2 vecB)
+            {
+                vecA         = vecA.vecSafeNormalized();
+                vecB         = vecB.vecSafeNormalized();
+                float fDot   = float.Clamp(Vector2.Dot(vecA, vecB), -1, 1);
                 float fTheta = MathF.Acos(fDot);
 
                 if (float.IsNaN(fTheta) &&

@@ -35,6 +35,7 @@
 
 using System.Numerics;
 using PicoGK;
+using PicoGK.Numerics;
 
 
 namespace Leap71
@@ -213,6 +214,20 @@ namespace Leap71
             /// Rotates the spline around the absolute z-axis by a given angle.
             /// The angle is measured in radian.
             /// </summary>
+            public static List<Vector2> aRotateListAroundZ(List<Vector2> aList, float fAngle)
+            {
+                List<Vector2> aFinalList = new List<Vector2>();
+                foreach (Vector2 vecPt in aList)
+                {
+                    aFinalList.Add(VecOperations.vecRotateAroundZ(vecPt, fAngle));
+                }
+                return aFinalList;
+            }
+
+            /// <summary>
+            /// Rotates the spline around the absolute z-axis by a given angle.
+            /// The angle is measured in radian.
+            /// </summary>
             public static List<Vector3> aRotateListAroundZ(List<Vector3> aList, float fAngle)
             {
                 List<Vector3> aFinalList = new List<Vector3>();
@@ -296,6 +311,20 @@ namespace Leap71
                 }
                 aFinalList.Add(aList[^1]);
                 return aFinalList;
+            }
+
+            /// <summary>
+            /// Rotates and translates the spline onto a new local frame of reference.
+            /// </summary>
+            public static List<Vector3> aTranslateListOntoFrame(LocalFrame oFrame, List<Vector2> aList)
+            {
+                List<Vector3> aNewList  = new ();
+                foreach (Vector2 vecPt in aList)
+                {
+                    Vector3 vecNewPt    = VecOperations.vecTranslatePointOntoFrame(oFrame, vecPt.vecAsVector3());
+                    aNewList.Add(vecNewPt);
+                }
+                return aNewList;
             }
 
             /// <summary>
