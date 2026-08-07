@@ -115,7 +115,7 @@ namespace Leap71
                 if (m_aXValues[0] > 0.0f)
                 {
                     float fFirstY   = m_aYValues[0];
-                     m_aXValues.Insert(0, 0.0f);
+                    m_aXValues.Insert(0, 0.0f);
                     m_aYValues.Insert(0, fFirstY);
                 }
                 if (m_aXValues[^1] < 1.0f)
@@ -151,7 +151,8 @@ namespace Leap71
             protected float oPointsDummyFunc(float fX)
             {
                 fX = float.Clamp(fX, 0, 1);
-
+                fX = float.Clamp(fX, m_aXValues[0], m_aXValues[^1]);
+        
                 int idx = m_aXValues.BinarySearch(fX);
                 if (idx < 0)
                 {
