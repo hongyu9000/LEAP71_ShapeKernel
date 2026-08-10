@@ -8,10 +8,12 @@ The LEAP 71 ShapeKernel library [uses PicoGK as the foundational Geometry Engine
 
 ## Including the ShapeKernel Library
 
-At this point, your **Visual Studio (VS) project** should have a folder named PicoGK, holding the PicoGK library files and a "Program.cs". As a next step, we are adding the ShapeKernel library. This can be done in two ways:
+At this point, your **Visual Studio (VS) project** [should look like this](https://github.com/leap71/PicoGK_Examples) and a contain a file named  `Program.cs`. 
+
+As a next step, we are adding the ShapeKernel library. This can be done in two ways:
 
 - Beginner
-  - download the ShapeKernel source code as zip file from https://github.com/leap71/LEAP71_ShapeKernel/releases/tag/v1.0.0 (you can pick the latest release available)
+  - download the ShapeKernel source code as zip file from https://github.com/leap71/LEAP71_ShapeKernel/releases (you can pick the latest release available)
   - un-zip and copy the files into your VS project folder
 - Pro
   - add ShapeKernel as a submodule, linking the Github repo: https://github.com/leap71/LEAP71_ShapeKernel
