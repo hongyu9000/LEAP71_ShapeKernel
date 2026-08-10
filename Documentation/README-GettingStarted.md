@@ -2,7 +2,7 @@
 
 ## Prep
 
-The LEAP 71 ShapeKernel library [uses PicoGK as the foundational Geometry Engine](https://github.com/leap71/PicoGK). Before going through this tutorial, make sure you were able to run the [Example Task from PicoGK](https://github.com/leap71/PicoGK/blob/main/Documentation/README.md).
+The LEAP 71 ShapeKernel library [uses PicoGK as the foundational Geometry Engine](https://github.com/leap71/PicoGK). Before going through this tutorial, make sure you were able [to set up PicoGK and run the example project](https://picogk.org/doc/).
 
 
 
@@ -36,7 +36,7 @@ Now, go into the Program.cs file and modify it to make it look like this by copy
 using Leap71.ShapeKernel;
 using PicoGK;
 
-string strOutputFolder = "/Users/josefinelissner/Documents/Code++/Examples";
+string strOutputFolder = "/Users/youruser/Documents/Examples";
 
 try
 {
@@ -70,7 +70,7 @@ We are changing the **voxel size** from 0.5mm to 0.1mm to increase the resolutio
 
 The ShapeKernel library comes with a number of example tasks that generate a few different variations of each BaseShape and showcase how implicits and lattices can be generated. In this case we are calling the `BaseLensShowCase.Task` which will generate a three variations of a type of BaseShape called BaseLens.
 
-<img src="baselenstask.png" alt="image-20231019213901141" style="zoom:50%;" />
+<img src="baselenstask.png" style="zoom:50%;" />
 
 We are adding a try-catch construct around the PicoGK library instantiation in order to be able to read out the error message, should our code fail to run successfully. You can use this Program.cs as a template for all your projects, just update the output folder, pick an adequate voxel size and call the Task function that will be the entry point to your code.
 
